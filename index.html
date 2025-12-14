@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Multi-Profile Demo — WhatsApp Concept</title>
+
+  <!-- Tailwind CDN for quick styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="description" content="Multi-Profile Personas prototype — demo app" />
+  <style>
+    /* small utility overrides */
+    html,body,#app { height: 100%; }
+    .app-bg { background: linear-gradient(180deg,#f8fafc,#ffffff); }
+    .sidebar-scroll { max-height: calc(100vh - 120px); overflow:auto; }
+    .avatar-placeholder { background-color: #e6e6e6; border-radius:9999px; display:inline-flex; align-items:center; justify-content:center; }
+    .clickable { cursor: pointer; }
+  </style>
+</head>
+<body class="antialiased text-gray-800 app-bg">
+  <div id="app" class="min-h-screen flex">
+    <!-- Sidebar -->
+    <aside class="w-80 bg-white border-r border-gray-200 p-4 hidden md:flex flex-col">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-full overflow-hidden">
+            <img id="currentProfileAvatar" src="assets/default-avatar-1.png" alt="active profile" class="w-full h-full object-cover"/>
+          </div>
+          <div>
+            <h1 id="currentProfileName" class="font-semibold text-lg">Default Profile</h1>
+            <p id="currentProfileAbout" class="text-xs text-gray-500">Tap to change</p>
+          </div>
+        </div>
+        <button id="createProfileBtn" class="px-3 py-1 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700">+ New</button>
+      </div>
+
+      <div class="mb-3">
+        <h2 class="text-xs uppercase text-gray-400 font-medium">Profiles</h2>
+        <div id="profilesList" class="mt-2 space-y-2 sidebar-scroll">
+          <!-- profiles rendered here -->
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <h2 class="text-xs uppercase text-gray-400 font-medium">Contacts</h2>
+        <div id="contactsList" class="mt-2 space-y-2 sidebar-scroll">
+          <!-- contacts rendered here -->
+        </div>
+      </div>
+
+      <div class="mt-auto pt-4 border-t border-gray-100">
+        <button id="openSettingsBtn" class="w-full text-left px-3 py-2 rounded-md hover:bg-gray-50">Settings</button>
+      </div>
+    </aside>
+
+    <!-- Mobile top bar -->
+    <div class="md:hidden w-full bg-white border-b border-gray-200 p-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full overflow-hidden">
+          <img id="mobileProfileAvatar" src="assets/default-avatar-1.png" alt="profile" class="w-full h-full object-cover"/>
+        </div>
+        <div>
+          <div id="mobileProfileName" class="font-medium text-sm">Default Profile</div>
+          <div id="mobileProfileAbout" class="text-xs text-gray-500">Tap to switch</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="mobileCreateProfileBtn" class="px-3 py-1 bg-blue-600 text-white rounded-md text-sm">+ New</button>
+        <button id="openMobileMenuBtn" class="p-2 rounded-md hover:bg-gray-100">
+          <!-- simple menu icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <main class="flex-1 min-h-screen">
+      <div id="mainContainer" class="p-6">
+        <!-- default welcome / instructions -->
+        <div id="welcomeView" class="max-w-3xl mx-auto">
+          <div class="bg-white shadow-sm rounded-lg p-6">
+            <h2 class="text-2xl font-semibold mb-2">Multi-Profile Personas — Demo</h2>
+            <p class="text-gray-600 mb-4">Create multiple profiles (Work, Friends, Family) and control which contacts see which profile picture and name. Click a contact from the sidebar to preview what they see.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="p-4 border rounded-lg">
+                <h3 class="font-medium">What recruiters should look for</h3>
+                <ul class="text-sm text-gray-600 mt-2 list-disc ml-5">
+                  <li>Profile CRUD & privacy rules</li>
+                  <li>Per-contact profile rendering</li>
+                  <li>Persistence via localStorage</li>
+                  <li>Small, polished UI and demo flow</li>
+                </ul>
+              </div>
+
+              <div class="p-4 border rounded-lg">
+                <h3 class="font-medium">Quick actions</h3>
+                <div class="mt-3 flex gap-2">
+                  <button id="quickCreateWork" class="px-3 py-2 bg-green-600 text-white rounded">Create Work Profile</button>
+                  <button id="quickCreateFriends" class="px-3 py-2 bg-indigo-600 text-white rounded">Create Friends Profile</button>
+                </div>
+                <p class="text-xs text-gray-500 mt-3">Tip: Use the "Preview as" button in the profile editor to demonstrate per-contact views during a demo.</p>
+              </div>
+            </div>
+
+            <div class="mt-6 text-right">
+              <button id="demoScriptBtn" class="px-3 py-1 bg-gray-100 rounded-md text-sm">Show demo script</button>
+            </div>
+          </div>
+
+          <div id="demoScript" class="mt-4 hidden">
+            <div class="bg-white p-4 rounded shadow">
+              <h4 class="font-semibold">Demo script (45–90s)</h4>
+              <ol class="text-sm text-gray-600 mt-2 list-decimal ml-5">
+                <li>Open app → show Profiles list and active profile.</li>
+                <li>Create a new "Work" profile and set visibility to custom, allowing "Boss".</li>
+                <li>Click contact "Boss" and show the chat header → demonstrates how Boss sees a work DP.</li>
+                <li>Reload to show persistence.</li>
+                <li>Explain the privacy & UX benefit in 15s.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat / Profile editor containers (dynamically shown) -->
+        <div id="viewsContainer" class="hidden">
+          <!-- Profile editor goes here -->
+          <div id="profileEditor" class="hidden"></div>
+
+          <!-- Chat view goes here -->
+          <div id="chatView" class="hidden"></div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Templates (hidden) -->
+  <template id="profileItemTmpl">
+    <div class="flex items-center gap-3 p-2 rounded hover:bg-gray-50 clickable profile-item">
+      <div class="w-10 h-10 rounded-full overflow-hidden">
+        <img class="profile-avatar w-full h-full object-cover" src="assets/default-avatar-1.png" alt="profile">
+      </div>
+      <div class="flex-1">
+        <div class="text-sm font-medium profile-name">Profile</div>
+        <div class="text-xs text-gray-400 profile-vis">Everyone</div>
+      </div>
+      <div class="text-xs text-gray-500 profile-actions">Edit</div>
+    </div>
+  </template>
+
+  <template id="contactItemTmpl">
+    <div class="flex items-center gap-3 p-2 rounded hover:bg-gray-50 clickable contact-item">
+      <div class="w-10 h-10 rounded-full overflow-hidden">
+        <img class="contact-avatar w-full h-full object-cover" src="assets/default-avatar-2.png" alt="contact">
+      </div>
+      <div class="flex-1">
+        <div class="text-sm font-medium contact-name">Contact</div>
+        <div class="text-xs text-gray-400 contact-last">Last message preview</div>
+      </div>
+      <div class="text-xs text-gray-400 contact-lastseen">2h</div>
+    </div>
+  </template>
+
+  <!-- App scripts (will be provided next files) -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

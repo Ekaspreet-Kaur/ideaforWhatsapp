@@ -1,0 +1,59 @@
+/* General body + app container */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f8fafc;
+  margin: 0;
+  padding: 0;
+}
+
+/* Sidebar scroll */
+.sidebar-scroll {
+  overflow-y: auto;
+  max-height: calc(100vh - 150px);
+}
+
+/* Hover effects for clickable items */
+.clickable:hover {
+  background-color: #f1f5f9;
+  transition: background 0.2s ease-in-out;
+}
+
+/* Profile list highlight */
+.profile-item.bg-blue-50 {
+  border-left: 4px solid #3b82f6;
+}
+
+/* Avatar styling */
+.avatar-placeholder,
+img {
+  border-radius: 9999px;
+  object-fit: cover;
+}
+
+/* Buttons */
+button {
+  outline: none;
+}
+
+button:focus {
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+/* Main content container */
+#mainContainer {
+  min-height: 100vh;
+  padding: 1.5rem;
+}
+
+/* Profile editor & chat view cards */
+#profileEditor > div,
+#chatView > div {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  aside {
+    display: none; /* hide sidebar on mobile */
+  }
+}
