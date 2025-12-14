@@ -1,11 +1,11 @@
 # Multi-Profile Personas — WhatsApp Concept Demo
 
-## 🚀 One-line pitch
+## 
 Create multiple profile personas and control which contacts see which profile picture and name — a privacy & personalization feature for WhatsApp.
 
 ---
 
-## 📝 Features
+##  Features
 - Create, edit, delete multiple profiles (Work, Friends, Family, etc.)
 - Per-profile visibility rules:
   - Everyone
@@ -19,7 +19,7 @@ Create multiple profile personas and control which contacts see which profile pi
 
 ---
 
-## 💻 How to run locally
+##  How to run locally
 1. Clone or download this repository
 2. Open `index.html` in your browser
 3. Profiles and contacts are preloaded; you can create new profiles and assign visibility rules
@@ -27,13 +27,9 @@ Create multiple profile personas and control which contacts see which profile pi
 
 ---
 
-## 🌐 Deployment
-- Recommended: Vercel or Netlify (static site)
-- Simply drag the project folder into Vercel/Netlify dashboard, deploy, and share the URL
 
----
 
-## 🏗 Architecture
+##  Architecture
 - **HTML/CSS**: Tailwind + small custom overrides (`styles.css`)
 - **JavaScript Modules**:
   - `data.js` → default contacts/profiles & helper functions
@@ -45,32 +41,12 @@ Create multiple profile personas and control which contacts see which profile pi
 
 ---
 
-## 🎥 Demo Script (45–90 seconds)
-1. Open app → show Profiles list and active profile.
-2. Create a new "Work" profile and set visibility to custom, allowing "Boss".
-3. Click contact "Boss" and show the chat header → demonstrates how Boss sees your work DP.
-4. Create a "Friends" profile → show different contact preview.
-5. Reload page → demonstrate persistence.
-6. Explain privacy & UX benefit in 15 seconds.
 
----
 
-## 📌 Recruiter Outreach Template
-
-**LinkedIn DM / Email Script:**
-
-> Hi [Recruiter Name],  
-> I’m a 3rd-year CS student and I built a small prototype demonstrating multi-profile personas for WhatsApp. It shows per-contact visibility, profile preview, and privacy-focused UX.  
-> Here’s the link to the live demo & GitHub: [Demo URL / GitHub URL]  
+> Hi,  
+> I’m a 3rd-year CS student and I built a small prototype demonstrating multi-profile personas for WhatsApp. It shows per-contact visibility, profile preview, and privacy-focused UX.   
 > I’d love to discuss internship opportunities where I can contribute to messaging app products.  
 > Thank you!  
-> — [Your Name]
+> Ekaspreet Kaur
 
-> **Tips:**  
-> - Send **private message**, not public.  
-> - Include **GitHub & live demo URL**.  
-> - Keep message **short and professional**.
 
----
-
-## 📂 File Structure
