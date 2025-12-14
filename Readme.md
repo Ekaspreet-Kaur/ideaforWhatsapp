@@ -2,7 +2,8 @@
 
 ## 
 Create multiple profile personas and control which contacts see which profile picture and name — a privacy & personalization feature for WhatsApp.
-
+ ## Live Demo
+ check out the fully workinf idea concept here ideafor-whatsapp-1hhnqhwnh-ekaspreet-kaurs-projects.vercel.app
 ---
 
 ##  Features
